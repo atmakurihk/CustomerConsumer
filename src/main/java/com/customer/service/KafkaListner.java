@@ -5,5 +5,5 @@ import org.springframework.stereotype.Component;
 
 public interface KafkaListner {
 
-    public void listner(CustomerRequestKafka customerRequestKafka);
+    public void listen(CustomerRequestKafka customerRequestKafka);
 }

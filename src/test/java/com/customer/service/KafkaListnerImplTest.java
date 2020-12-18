@@ -32,7 +32,7 @@ public class KafkaListnerImplTest {
         CustomerRequestKafka publisherRequest =
                 ConsumerServiceAspectTest.createPublisherRequest(
                         ObjectMapperUtilsTest.getCustomerData(), "transaction-id", "activity-id");
-        kafkaListner.listner(publisherRequest);
+        kafkaListner.listen(publisherRequest);
 
         verify(consumerService, times(1)).publishCustomerData(Mockito.any());
     }
@@ -48,7 +48,7 @@ public class KafkaListnerImplTest {
         assertThatExceptionOfType(RuntimeException.class)
                 .isThrownBy(
                         () -> {
-                            kafkaListner.listner(publisherRequest);
+                            kafkaListner.listen(publisherRequest);
                         })
                 .withMessage("Unable to convert");
 

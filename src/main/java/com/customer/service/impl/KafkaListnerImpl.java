@@ -22,7 +22,7 @@ public class KafkaListnerImpl implements KafkaListner {
 
   @Override
   @KafkaListener(topics = "${cloudkarafka.topic}", groupId = "${cloudkarafka.group-id}")
-  public void listner(CustomerRequestKafka customerRequestKafka) {
+  public void listen(CustomerRequestKafka customerRequestKafka) {
     CustomerRequestKafka maskedRequest = customerDataMaskConverter.convert(customerRequestKafka);
     LOGGER.info("consumed data{}", maskedRequest);
     consumerService.publishCustomerData(customerRequestKafka);
