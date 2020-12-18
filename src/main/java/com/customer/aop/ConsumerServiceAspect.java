@@ -16,7 +16,7 @@ import org.springframework.stereotype.Component;
 @Aspect
 @Component
 public class ConsumerServiceAspect {
-  private static Logger logger = LoggerFactory.getLogger(ConsumerServiceAspect.class);
+  private static final Logger logger = LoggerFactory.getLogger(ConsumerServiceAspect.class);
 
   @Autowired private ErrorLogRepository errorLogRepository;
 

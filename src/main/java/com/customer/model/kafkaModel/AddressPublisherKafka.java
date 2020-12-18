@@ -2,13 +2,13 @@ package com.customer.model.kafkaModel;
 
 public class AddressPublisherKafka   {
 
-  private String addressLine1 = null;
+  private String addressLine1;
 
-  private String addressLine2 = null;
+  private String addressLine2;
 
-  private String street = null;
+  private String street;
 
-  private String postalCode = null;
+  private String postalCode;
 
   public String getAddressLine1() {
     return addressLine1;

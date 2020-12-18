@@ -7,6 +7,7 @@ import com.customer.converters.CustomerDataMaskConverter;
 import com.customer.model.kafkaModel.CustomerRequestKafka;
 import com.customer.service.impl.KafkaListnerImpl;
 import com.customer.utils.ObjectMapperUtilsTest;
+import com.customer.utils.TestDataUtil;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -39,15 +40,13 @@ public class KafkaListnerImplTest {
 
     @Test
     public void testSubscribeFailure() {
-        CustomerRequestKafka publisherRequest = ObjectMapperUtilsTest.getCustomerData();
+        CustomerRequestKafka publisherRequest = TestDataUtil.createValidCustomerObject();
         Mockito.when(customerDataMaskConverter.convert(Mockito.any()))
                 .thenThrow(new RuntimeException("Unable to convert"));
 
         assertThatExceptionOfType(RuntimeException.class)
                 .isThrownBy(
-                        () -> {
-                            kafkaListner.subscribe(publisherRequest);
-                        })
+                        () -> kafkaListner.subscribe(publisherRequest))
                 .withMessage("Unable to convert");
 
         verify(consumerService, never()).publishCustomerData(Mockito.any());

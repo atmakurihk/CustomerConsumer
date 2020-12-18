@@ -7,6 +7,7 @@ import com.customer.converters.CustomerDataMaskConverter;
 import com.customer.dao.ErrorLogRepository;
 import com.customer.model.kafkaModel.CustomerRequestKafka;
 import com.customer.utils.ObjectMapperUtilsTest;
+import com.customer.utils.TestDataUtil;
 import org.aspectj.lang.JoinPoint;
 import org.hibernate.service.spi.ServiceException;
 import org.junit.jupiter.api.Test;
@@ -34,7 +35,7 @@ public class ConsumerServiceAspectTest {
 
   @Test
   public void testHandleThrownException() {
-    CustomerRequestKafka publisherRequest = ObjectMapperUtilsTest.getCustomerData();
+    CustomerRequestKafka publisherRequest = TestDataUtil.createValidCustomerObject();
     Mockito.when(joinPoint.getArgs()).thenReturn(new Object[] {publisherRequest});
     consumerServiceAspect.handleThrownException(
             joinPoint, new ServiceException("Unable to persist"));
