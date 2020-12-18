@@ -21,8 +21,8 @@ public class KafkaListnerImpl implements KafkaListner {
   private ConsumerService consumerService;
 
   @Override
-  @KafkaListener(topics = "${cloudkarafka.topic}", groupId = "${cloudkarafka.group-id}")
-  public void listen(CustomerRequestKafka customerRequestKafka) {
+  @KafkaListener(topics = "${cloudkarafka.topic}", groupId = "${spring.kafka.consumer.group-id}")
+  public void subscribe(CustomerRequestKafka customerRequestKafka) {
     CustomerRequestKafka maskedRequest = customerDataMaskConverter.convert(customerRequestKafka);
     LOGGER.info("consumed data{}", maskedRequest);
     consumerService.publishCustomerData(customerRequestKafka);

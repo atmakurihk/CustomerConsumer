@@ -4,7 +4,6 @@ import com.customer.converters.CustomerDataMaskConverter;
 import com.customer.dao.AuditLogRepository;
 import com.customer.entity.AuditLog;
 import com.customer.model.kafkaModel.CustomerRequestKafka;
-import com.customer.model.kafkaModel.PublisherRequest;
 import com.customer.service.ConsumerService;
 import com.customer.utils.ObjectMapperUtil;
 import org.slf4j.Logger;

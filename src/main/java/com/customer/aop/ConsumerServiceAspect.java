@@ -44,7 +44,6 @@ public class ConsumerServiceAspect {
     errorLog.setErrorType(ex.getClass().getName());
     errorLog.setPayload(
         ObjectMapperUtil.getJsonFromObj(customerConsumerDataMasker.convert(customerRequestKafka)));
-
     return errorLog;
   }
 }

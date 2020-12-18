@@ -1,7 +1,9 @@
 package com.customer.service;
 
+import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
 
-import com.customer.aop.ConsumerServiceAspectTest;
 import com.customer.converters.CustomerDataMaskConverter;
 import com.customer.dao.AuditLogRepository;
 import com.customer.model.kafkaModel.CustomerRequestKafka;
@@ -15,15 +17,12 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
 
 @ExtendWith(MockitoExtension.class)
 public class ConsumerServiceImplTest {
 
   @InjectMocks
-  ConsumerServiceImpl consumerService;
+  private ConsumerServiceImpl consumerService;
 
   @Mock private AuditLogRepository auditLogRepository;
 
@@ -32,8 +31,7 @@ public class ConsumerServiceImplTest {
   @Test
   public void testPublishCustomerData() {
     CustomerRequestKafka publisherRequest =
-        ConsumerServiceAspectTest.createPublisherRequest(
-                ObjectMapperUtilsTest.getCustomerData(), "transaction-id", "activity-id");
+                ObjectMapperUtilsTest.getCustomerData();
     consumerService.publishCustomerData(publisherRequest);
 
     verify(auditLogRepository, times(1)).save(Mockito.any());
@@ -42,8 +40,7 @@ public class ConsumerServiceImplTest {
   @Test
   public void testPublishCustomerDataFailure() {
     CustomerRequestKafka publisherRequest =
-        ConsumerServiceAspectTest.createPublisherRequest(
-                ObjectMapperUtilsTest.getCustomerData(), "transaction-id", "activity-id");
+                ObjectMapperUtilsTest.getCustomerData();
     Mockito.when(auditLogRepository.save(Mockito.any()))
         .thenThrow(new ServiceException("Unable to persist"));
 

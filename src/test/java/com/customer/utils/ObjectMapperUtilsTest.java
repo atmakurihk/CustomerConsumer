@@ -1,13 +1,14 @@
 package com.customer.utils;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
 import com.customer.model.kafkaModel.AddressPublisherKafka;
 import com.customer.model.kafkaModel.CustomerRequestKafka;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+
 
 @ExtendWith(MockitoExtension.class)
 public class ObjectMapperUtilsTest {

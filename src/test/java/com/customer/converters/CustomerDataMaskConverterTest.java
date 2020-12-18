@@ -1,13 +1,14 @@
 package com.customer.converters;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 import com.customer.model.kafkaModel.AddressPublisherKafka;
 import com.customer.model.kafkaModel.CustomerRequestKafka;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 
 public class CustomerDataMaskConverterTest {
 
