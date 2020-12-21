@@ -4,11 +4,12 @@ import static org.assertj.core.api.Assertions.assertThatExceptionOfType;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 
+import com.customer.converters.CustomerDataMaskConverter;
 import com.customer.dao.AuditLogRepository;
+import com.customer.exception.GenericException;
 import com.customer.model.kafkaModel.CustomerRequestKafka;
 import com.customer.service.impl.ConsumerServiceImpl;
 import com.customer.utils.TestDataUtil;
-import org.hibernate.service.spi.ServiceException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -25,6 +26,8 @@ public class ConsumerServiceImplTest {
 
   @Mock private AuditLogRepository auditLogRepository;
 
+  @Mock private CustomerDataMaskConverter customerDataMaskConverter;
+
   @Test
   public void testPublishCustomerData() {
     CustomerRequestKafka publisherRequest =
@@ -39,9 +42,9 @@ public class ConsumerServiceImplTest {
     CustomerRequestKafka publisherRequest =
             TestDataUtil.createValidCustomerObject();
     Mockito.when(auditLogRepository.save(Mockito.any()))
-        .thenThrow(new ServiceException("Unable to persist"));
+        .thenThrow(new GenericException("Unable to persist"));
 
-    assertThatExceptionOfType(ServiceException.class)
+    assertThatExceptionOfType(GenericException.class)
         .isThrownBy(
             () -> consumerService.publishCustomerData(publisherRequest))
         .withMessage("Unable to persist");

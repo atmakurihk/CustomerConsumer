@@ -30,20 +30,34 @@
             </timeBasedFileNamingAndTriggeringPolicy>
         </rollingPolicy>
     </appender>
-
+    <appender name="http" class="com.splunk.logging.HttpEventCollectorLogbackAppender">
+        <url>https://prd-p-zbkrm.splunkcloud.com:8088</url>
+        <token>eb0e6567-709c-460a-afa9-397602dfa30e</token>
+        <disableCertificateValidation>true</disableCertificateValidation>
+        <index>history</index>
+        <source>consumer-log-event</source>
+        <sourcetype>_json</sourcetype>
+        <batch_size_count>1</batch_size_count>
+        <layout class="ch.qos.logback.classic.PatternLayout">
+            <pattern>%msg</pattern>
+        </layout>
+    </appender>
 
     <logger name="org.springframework.web" level="ERROR" additivity="false">
         <appender-ref ref="STDOUT"/>
+        <appender-ref ref="http"/>
 
     </logger>
 
     <logger name="com.customer" level="INFO" additivity="false">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="INFO-LOG"/>
+        <appender-ref ref="http"/>
     </logger>
 
     <root level="INFO">
         <appender-ref ref="STDOUT"/>
+        <appender-ref ref="http"/>
     </root>
 
 </configuration>

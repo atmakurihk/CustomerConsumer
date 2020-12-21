@@ -5,11 +5,10 @@ import static org.mockito.Mockito.verify;
 
 import com.customer.converters.CustomerDataMaskConverter;
 import com.customer.dao.ErrorLogRepository;
+import com.customer.exception.GenericException;
 import com.customer.model.kafkaModel.CustomerRequestKafka;
-import com.customer.utils.ObjectMapperUtilsTest;
 import com.customer.utils.TestDataUtil;
 import org.aspectj.lang.JoinPoint;
-import org.hibernate.service.spi.ServiceException;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Answers;
@@ -17,6 +16,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
+
 
 
 
@@ -38,7 +38,7 @@ public class ConsumerServiceAspectTest {
     CustomerRequestKafka publisherRequest = TestDataUtil.createValidCustomerObject();
     Mockito.when(joinPoint.getArgs()).thenReturn(new Object[] {publisherRequest});
     consumerServiceAspect.handleThrownException(
-            joinPoint, new ServiceException("Unable to persist"));
+            joinPoint, new GenericException("Unable to persist"));
     verify(errorLogRepository, times(1)).save(Mockito.any());
   }
 
