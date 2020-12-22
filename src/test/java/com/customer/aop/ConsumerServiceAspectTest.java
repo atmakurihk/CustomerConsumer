@@ -27,7 +27,7 @@ public class ConsumerServiceAspectTest {
 
   @Mock private ErrorLogRepository errorLogRepository;
 
-  @Mock private CustomerDataMaskConverter customerConsumerDataMasker;
+  @Mock private CustomerDataMaskConverter customerDataMaskConverter;
 
   @Mock(answer = Answers.RETURNS_MOCKS)
   private JoinPoint joinPoint;

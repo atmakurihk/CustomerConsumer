@@ -20,7 +20,7 @@ public class ConsumerServiceAspect {
 
   @Autowired private ErrorLogRepository errorLogRepository;
 
-  @Autowired private CustomerDataMaskConverter customerConsumerDataMasker;
+  @Autowired private CustomerDataMaskConverter customerDataMaskConverter;
 
   @AfterThrowing(
       pointcut =
@@ -43,7 +43,7 @@ public class ConsumerServiceAspect {
     errorLog.setErrorDescription(ex.getMessage());
     errorLog.setErrorType(ex.getClass().getName());
     errorLog.setPayload(
-        ObjectMapperUtil.getJsonFromObj(customerConsumerDataMasker.convert(customerRequestKafka)));
+        ObjectMapperUtil.getJsonFromObj(customerDataMaskConverter.convert(customerRequestKafka)));
     return errorLog;
   }
 }
